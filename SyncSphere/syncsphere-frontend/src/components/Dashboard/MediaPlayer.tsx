@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import { IoPlaySharp, IoPauseSharp, IoVolumeMediumSharp, IoVolumeMuteSharp, IoExpand, IoContract, IoSearch, IoCloseCircle, IoTv } from 'react-icons/io5';
 import { FaYoutube, FaSpotify, FaAmazon, FaApple, FaPlay } from 'react-icons/fa';
 import { SiNetflix, SiYoutubemusic } from 'react-icons/si';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
 import { IconType } from 'react-icons';
 import './MediaPlayer.css';
 import './MediaPlayerHeader.css';
@@ -207,7 +207,7 @@ interface ControlButtonProps {
   active?: boolean;
 }
 
-const ControlButton = ({ icon: Icon, onClick, tooltip, disabled = false, active = false }: ControlButtonProps) => (
+const ControlButton = memo(({ icon: Icon, onClick, tooltip, disabled = false, active = false }: ControlButtonProps) => (
   <Tooltip title={tooltip} placement="top">
     <span>
       <IconButton
@@ -239,7 +239,9 @@ const ControlButton = ({ icon: Icon, onClick, tooltip, disabled = false, active 
       </IconButton>
     </span>
   </Tooltip>
-);
+));
+
+ControlButton.displayName = 'ControlButton';
 
 export const MediaPlayer = () => {
   const [playing, setPlaying] = useState(false);

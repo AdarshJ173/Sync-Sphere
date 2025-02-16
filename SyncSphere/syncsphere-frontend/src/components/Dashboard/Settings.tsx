@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -11,14 +11,11 @@ import {
   Switch,
   Modal,
   Fade,
-  Avatar,
   Button,
   TextField,
   Stack,
   Select,
   MenuItem,
-  Tooltip,
-  Badge,
   Alert,
   Snackbar,
 } from '@mui/material';
@@ -85,7 +82,6 @@ export const Settings = ({ open, onClose }: SettingsProps) => {
   const [username, setUsername] = useState(profile?.username || '');
   const [avatar, setAvatar] = useState(profile?.avatar || '');
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (open) {
