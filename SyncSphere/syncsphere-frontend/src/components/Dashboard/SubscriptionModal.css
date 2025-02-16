@@ -1,0 +1,294 @@
+/* Entrance Animation */
+.subscription-modal-enter {
+  animation: modalEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 200px;
+  opacity: 1 !important;
+}
+
+@keyframes modalEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Plan Card Animations */
+.plan-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  visibility: visible !important;
+}
+
+.plan-card:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+}
+
+.plan-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  z-index: -1;
+  border-radius: inherit;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.plan-card:hover::before {
+  opacity: 1;
+}
+
+/* Feature Animation */
+.feature-item {
+  animation: featureSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  animation-fill-mode: forwards;
+}
+
+@keyframes featureSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Price Animation */
+.price-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.price-text {
+  animation: priceScale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes priceScale {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* CTA Button Animation */
+.cta-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+/* Popular Badge Animation */
+.popular-badge {
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(119, 67, 219, 0.4);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(119, 67, 219, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(119, 67, 219, 0);
+  }
+}
+
+/* Feature Icon Animation */
+.feature-icon {
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Background Animation */
+.modal-background {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(119, 67, 219, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(188, 111, 241, 0.1) 0%, transparent 50%);
+  opacity: 0.5;
+  z-index: -1;
+  animation: backgroundShift 15s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Success Animation */
+.success-animation {
+  animation: successPop 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes successPop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Dark Mode Adjustments */
+[data-theme='dark'] .plan-card {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .modal-background {
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(119, 67, 219, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(188, 111, 241, 0.2) 0%, transparent 50%);
+}
+
+/* Micro-interactions */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Feature Highlight Animation */
+.feature-highlight {
+  position: relative;
+}
+
+.feature-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.feature-highlight:hover::after {
+  transform: scaleX(1);
+}
+
+/* Scroll Animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: revealContent 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes revealContent {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure Modal Content Visibility */
+.MuiDialog-paper {
+  overflow: hidden !important;
+  max-height: 90vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.subscription-modal-content {
+  overflow-y: auto !important;
+  scrollbar-width: none !important;  /* Firefox */
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none !important;  /* Chrome, Safari, Opera */
+  }
+}
+
+/* Fix Feature Items Initial State */
+.feature-item {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Ensure Plan Cards are Visible */
+.plan-card {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  visibility: visible !important;
+} 

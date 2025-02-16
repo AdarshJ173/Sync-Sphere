@@ -1,0 +1,318 @@
+.split-container {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  gap: 4px;
+  width: 100%;
+  touch-action: none;
+  background-color: var(--background-default);
+}
+
+.split-pane {
+  overflow: hidden;
+  min-width: 0;
+  flex-shrink: 1;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  background-color: var(--background-paper);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  border: 1px solid var(--divider-color);
+  will-change: flex-basis;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.split-pane.prioritized {
+  border-color: var(--primary-transparent-dark);
+  box-shadow: 0 8px 24px var(--primary-transparent);
+  transform: scale(1.002);
+  z-index: 1;
+}
+
+.split-pane.dragging {
+  transition: none;
+  will-change: flex-basis;
+}
+
+.pane-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(45deg, rgba(119, 67, 219, 0.15), rgba(205, 193, 255, 0.15));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.pane-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(119, 67, 219, 0.1),
+    rgba(205, 193, 255, 0.05),
+    transparent 70%
+  );
+  animation: headerWave 8s infinite ease-in-out;
+  transform-origin: center;
+}
+
+.pane-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(119, 67, 219, 0.05) 25%,
+    rgba(205, 193, 255, 0.08) 50%,
+    rgba(119, 67, 219, 0.05) 75%,
+    transparent
+  );
+  animation: headerFlow 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes headerWave {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes headerFlow {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(0%) scale(1.1);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.pane-title {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pane-label {
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.split-pane.prioritized .pane-label {
+  color: var(--primary-light);
+  text-shadow: 0 1px 2px var(--primary-shadow);
+  letter-spacing: 0.02em;
+}
+
+.priority-button {
+  opacity: 0.85;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 6px !important;
+  margin-left: 12px !important;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.priority-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    var(--primary-transparent),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.priority-button:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.priority-button:hover::before {
+  opacity: 1;
+}
+
+.priority-button.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.priority-button.active::before {
+  opacity: 1;
+  background: radial-gradient(
+    circle at center,
+    var(--primary-transparent-dark),
+    var(--primary-transparent-light) 70%
+  );
+}
+
+.priority-button svg {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.priority-button.active svg {
+  transform: rotate(-45deg) scale(1.1);
+}
+
+.pane-content {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  height: 100%;
+  padding: 16px;
+  background: var(--gradient-dark);
+}
+
+.gutter {
+  background-color: var(--primary-transparent);
+  position: relative;
+  transition: all 0.15s ease-out;
+  cursor: col-resize;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.gutter:hover {
+  background-color: var(--primary-transparent-dark);
+}
+
+.gutter.gutter-horizontal {
+  width: 4px !important;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.gutter.gutter-horizontal::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 24px;
+  background-color: var(--primary-transparent-dark);
+  border-radius: 1px;
+  transition: all 0.15s ease-out;
+  will-change: height, background-color;
+  box-shadow: 0 0 8px var(--primary-transparent);
+}
+
+.gutter.gutter-horizontal:hover::after {
+  background-color: var(--primary-main);
+  height: 36px;
+  box-shadow: 0 0 12px var(--primary-transparent-dark);
+}
+
+.gutter.gutter-horizontal.dragging {
+  background-color: var(--primary-transparent-dark);
+}
+
+.gutter.gutter-horizontal.dragging::after {
+  background-color: var(--primary-light);
+  height: 48px;
+  box-shadow: 0 0 16px var(--primary-transparent-dark);
+}
+
+/* Enhanced responsive adjustments */
+@media (max-width: 768px) {
+  .split-container {
+    padding: 8px;
+    gap: 2px;
+  }
+
+  .pane-header {
+    min-height: 40px;
+    padding: 8px 12px;
+  }
+
+  .pane-label {
+    font-size: 0.875rem;
+  }
+
+  .priority-button {
+    padding: 4px !important;
+    margin-left: 8px !important;
+  }
+
+  .pane-content {
+    padding: 12px;
+  }
+
+  .split-pane.prioritized {
+    transform: scale(1.001);
+  }
+
+  .gutter.gutter-horizontal {
+    width: 6px !important;
+  }
+
+  .gutter.gutter-horizontal::after {
+    height: 16px;
+  }
+
+  .gutter.gutter-horizontal:hover::after,
+  .gutter.gutter-horizontal.dragging::after {
+    height: 24px;
+  }
+}
+
+/* Animation keyframes */
+@keyframes priorityPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.split-divider {
+  width: 4px;
+  margin: 0 -2px;
+  background-color: var(--divider-color);
+  position: relative;
+  cursor: col-resize;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.split-divider:hover,
+.split-divider.dragging {
+  background-color: var(--primary-main);
+} 

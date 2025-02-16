@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SyncSphere Call</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background-color: #1a1a1a;
+        }
+        #root {
+            width: 100%;
+            height: 100%;
+        }
+        .join-btn {
+            background-color: #6E2594 !important;
+        }
+        .join-btn:hover {
+            background-color: #8E45B4 !important;
+        }
+        .leave-btn {
+            background-color: #ff4444 !important;
+        }
+        .leave-btn:hover {
+            background-color: #ff6666 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+    <script>
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isVideoCall = urlParams.get('video') === 'true';
+            const roomID = urlParams.get('roomId') || `syncsphere-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            const userID = `user-${Date.now()}`;
+            const userName = urlParams.get('userName') || `User-${userID}`;
+
+            // ZegoCloud credentials
+            const appID = 1414959971;
+            const serverSecret = "1fdb3c98c1b46e62dcdd955bd938da7447b0aebbc67c8e98b61483cdaa8c95b6";
+
+            const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+                appID,
+                serverSecret,
+                roomID,
+                userID,
+                userName
+            );
+
+            const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+            zp.joinRoom({
+                container: document.querySelector("#root"),
+                scenario: {
+                    mode: isVideoCall ? ZegoUIKitPrebuilt.VideoConference : ZegoUIKitPrebuilt.OneONoneCall,
+                },
+                showPreJoinView: true,
+                showRoomTimer: true,
+                showUserList: true,
+                showPreviewOptions: true,
+                turnOnMicrophoneWhenJoining: true,
+                turnOnCameraWhenJoining: isVideoCall,
+                showMyCameraToggleButton: isVideoCall,
+                showMyMicrophoneToggleButton: true,
+                showAudioVideoSettingsButton: true,
+                showScreenSharingButton: isVideoCall,
+                showTextChat: true,
+                maxUsers: 2,
+                layout: isVideoCall ? "Grid" : "Auto",
+                showLayoutButton: isVideoCall,
+                onLeaveRoom: () => {
+                    window.close();
+                },
+                sharedLinks: [{
+                    name: 'Join via link',
+                    url: window.location.href
+                }],
+            });
+        }
+    </script>
+</body>
+</html> 

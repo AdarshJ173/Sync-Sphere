@@ -1,0 +1,200 @@
+.media-player-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Styles for YouTube player with native controls */
+.player-wrapper.youtube-native {
+  aspect-ratio: 16/9;
+  max-height: calc(100% - 32px);
+}
+
+.player-wrapper.youtube-native iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Hide custom controls when YouTube native controls are active */
+.youtube-native .custom-controls {
+  display: none !important;
+}
+
+/* Custom controls styling */
+.custom-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 20px;
+  z-index: 1;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border-radius: 0 0 8px 8px;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Rotating Wave Effect */
+.header-background-wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(66, 133, 244, 0.15),
+    rgba(219, 68, 55, 0.1),
+    rgba(244, 180, 0, 0.05),
+    transparent 70%
+  );
+  animation: rotateWave 15s infinite linear;
+  transform-origin: center;
+}
+
+/* Flowing Gradient */
+.header-background-flow {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(66, 133, 244, 0.1) 20%,
+    rgba(219, 68, 55, 0.15) 40%,
+    rgba(244, 180, 0, 0.1) 60%,
+    transparent 80%
+  );
+  animation: flowGradient 8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Moving Particles */
+.header-background-particles::before,
+.header-background-particles::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(66, 133, 244, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(219, 68, 55, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(244, 180, 0, 0.05) 0%, transparent 50%);
+  animation: moveParticles 10s infinite linear;
+}
+
+.header-background-particles::after {
+  animation-delay: -5s;
+  animation-direction: reverse;
+}
+
+/* Keyframe Animations */
+@keyframes rotateWave {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes flowGradient {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(0%) scale(1.05);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes moveParticles {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translate(-2%, -1%) scale(1.02);
+    opacity: 0.7;
+  }
+  66% {
+    transform: translate(1%, 2%) scale(0.98);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Shimmer effect for interactive elements */
+.interactive-element {
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-element::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translate(-100%, -100%) rotate(45deg);
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(45deg);
+  }
+}
+
+/* Update fullscreen styles */
+.fullscreen-player {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2000 !important;
+} 

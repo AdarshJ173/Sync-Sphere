@@ -1,0 +1,33 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "enablejsapi",
+    "enterpictureinpicture",
+    "leavepictureinpicture",
+    "modestbranding",
+    "nodownload",
+    "noremoteplayback",
+    "seekbackward",
+    "seekforward",
+    "showinfo",
+    "syncsphere",
+    "Unsend",
+    "unstarted",
+    "Unstarted",
+    "videocam",
+    "Videocam",
+    "webm",
+    "youtu",
+    "Youtubemusic",
+    "Zego",
+    "ZEGO",
+    "zegocloud"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    ".git/**"
+  ]
+}
